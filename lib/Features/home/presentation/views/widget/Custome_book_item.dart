@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Customebookimage extends StatelessWidget {
-  const Customebookimage({super.key, required this.imageUrl});
+  const Customebookimage({super.key, required this.imageUrl, this.aspectRatio});
   final String imageUrl;
+  final double? aspectRatio;
   @override
   Widget build(BuildContext context) {
     return ClipRRect(

@@ -9,9 +9,9 @@ abstract class NewsetBooksState extends Equatable {
 
 class NewsetBooksInitial extends NewsetBooksState {}
 
-class FeaturedBookSuccess extends NewsetBooksState {
+class NewsetBookSuccess extends NewsetBooksState {
   final List<BookModel> books;
-  const FeaturedBookSuccess(this.books);
+  const NewsetBookSuccess(this.books);
 }
 
 class NewsetBookLoading extends NewsetBooksState {}
