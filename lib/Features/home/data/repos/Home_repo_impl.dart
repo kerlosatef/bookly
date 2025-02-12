@@ -11,37 +11,59 @@ class HomeRepoImpl implements HomeRepo {
   @override
   Future<Either<Failure, List<BookModel>>> fetchNewestBooks() async {
     try {
-      final data = await apiServices.get(
-          endPoint:
-              "volumes?Filtering=free-ebooks&Sorting=newest&q=subject:programming");
-      final List<BookModel> books = [];
+      var data = await apiServices.get(
+          endPoint: 'volumes?Filtering=free-ebooks&Sorting=newest&q=flutter');
+      List<BookModel> books = [];
       for (var item in data['items']) {
-        books.add(BookModel.fromJson(item));
+        try {
+          books.add(BookModel.fromJson(item));
+        } catch (e) {
+          books.add(BookModel.fromJson(item));
+        }
       }
+
       return right(books);
-    } on Exception catch (e) {
+    } catch (e) {
       if (e is DioException) {
-        return left(ServerFailure.fromDioException(e));
+        return left(
+          ServerFailure.fromDioException(e),
+        );
       }
-      return left(ServerFailure(e.toString()));
+      return left(
+        ServerFailure(
+          e.toString(),
+        ),
+      );
     }
   }
 
   @override
   Future<Either<Failure, List<BookModel>>> fetchFeaturedBook() async {
     try {
-      final data = await apiServices.get(
-          endPoint: "volumes?Filtering=free-ebooks&q=subject:programming");
-      final List<BookModel> books = [];
+      var data = await apiServices.get(
+          endPoint:
+              'volumes?Filtering=free-ebooks&Sorting=newest&q=computer science');
+      List<BookModel> books = [];
       for (var item in data['items']) {
-        books.add(BookModel.fromJson(item));
+        try {
+          books.add(BookModel.fromJson(item));
+        } catch (e) {
+          books.add(BookModel.fromJson(item));
+        }
       }
+
       return right(books);
-    } on Exception catch (e) {
+    } catch (e) {
       if (e is DioException) {
-        return left(ServerFailure.fromDioException(e));
+        return left(
+          ServerFailure.fromDioException(e),
+        );
       }
-      return left(ServerFailure(e.toString()));
+      return left(
+        ServerFailure(
+          e.toString(),
+        ),
+      );
     }
   }
 }

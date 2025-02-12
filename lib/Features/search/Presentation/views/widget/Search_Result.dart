@@ -1,5 +1,5 @@
 import 'package:bookly/Features/home/presentation/manger/newsetbookscubit/newset_books_cubit.dart';
-import 'package:bookly/Features/home/presentation/views/widget/Best_Sellers_List_View_Item.dart';
+import 'package:bookly/Features/home/presentation/views/widget/Newset_Books_List_View_Item.dart';
 import 'package:bookly/core/widget/custome_error_widget.dart';
 import 'package:bookly/core/widget/custome_loading.dart';
 import 'package:flutter/material.dart';
