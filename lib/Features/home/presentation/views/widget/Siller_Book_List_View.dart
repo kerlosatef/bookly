@@ -13,7 +13,9 @@ class SillerBookListView extends StatelessWidget {
         itemBuilder: (context, index) {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
-            child: Customebookimage(),
+            child: Customebookimage(
+              imageUrl: 'https://picsum.photos/200/300',
+            ),
           );
         },
       ),
