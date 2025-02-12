@@ -18,7 +18,7 @@ class CustomeErrorWidget extends StatelessWidget {
             height: 10,
           ),
           Text(
-            'Something went wrong',
+            errmessage,
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
