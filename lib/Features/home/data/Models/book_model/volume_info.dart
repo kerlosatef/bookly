@@ -51,36 +51,42 @@ class VolumeInfo extends Equatable {
   });
 
   factory VolumeInfo.fromJson(Map<String, dynamic> json) => VolumeInfo(
-        title: json['title'] as String,
-        subtitle: json['subtitle'] as String?,
-        authors: (json['authors'] as List<dynamic>).cast<String>(),
-        publisher: json['publisher'] as String?,
-        publishedDate: json['publishedDate'] as String?,
-        description: json['description'] as String?,
+        title: json['title'] as String? ?? "Title not available",
+        subtitle: json['subtitle'] as String? ?? "",
+        authors: (json['authors'] as List<dynamic>?)?.cast<String>() ??
+            ["Unknown author"],
+        publisher: json['publisher'] as String? ?? "Unknown",
+        publishedDate: json['publishedDate'] as String? ?? "Date not available",
+        description:
+            json['description'] as String? ?? "No description available",
         industryIdentifiers: (json['industryIdentifiers'] as List<dynamic>?)
-            ?.map((e) => IndustryIdentifier.fromJson(e as Map<String, dynamic>))
-            .toList(),
+                ?.map((e) =>
+                    IndustryIdentifier.fromJson(e as Map<String, dynamic>))
+                .toList() ??
+            [],
         readingModes: json['readingModes'] == null
             ? null
             : ReadingModes.fromJson(
                 json['readingModes'] as Map<String, dynamic>),
-        pageCount: json['pageCount'] as int?,
-        printType: json['printType'] as String?,
-        categories: (json['categories'] as List<dynamic>?)?.cast<String>(),
-        maturityRating: json['maturityRating'] as String?,
-        allowAnonLogging: json['allowAnonLogging'] as bool?,
-        contentVersion: json['contentVersion'] as String?,
+        pageCount: json['pageCount'] as int? ?? 0,
+        printType: json['printType'] as String? ?? "Not specified",
+        categories: (json['categories'] as List<dynamic>?)?.cast<String>() ??
+            ["Uncategorized"],
+        maturityRating: json['maturityRating'] as String? ?? "Not available",
+        allowAnonLogging: json['allowAnonLogging'] as bool? ?? false,
+        contentVersion: json['contentVersion'] as String? ?? "Not available",
         panelizationSummary: json['panelizationSummary'] == null
             ? null
             : PanelizationSummary.fromJson(
                 json['panelizationSummary'] as Map<String, dynamic>),
-        imageLinks: json['imageLinks'] == null
-            ? null
-            : ImageLinks.fromJson(json['imageLinks'] as Map<String, dynamic>),
-        language: json['language'] as String?,
-        previewLink: json['previewLink'] as String?,
-        infoLink: json['infoLink'] as String?,
-        canonicalVolumeLink: json['canonicalVolumeLink'] as String?,
+        imageLinks: json['imageLinks'] != null
+            ? ImageLinks.fromJson(json['imageLinks'] as Map<String, dynamic>)
+            : ImageLinks(thumbnail: 'https://via.placeholder.com/150'),
+        language: json['language'] as String? ?? "Not specified",
+        previewLink: json['previewLink'] as String? ?? "Not available",
+        infoLink: json['infoLink'] as String? ?? "Not available",
+        canonicalVolumeLink:
+            json['canonicalVolumeLink'] as String? ?? "Not available",
       );
 
   Map<String, dynamic> toJson() => {

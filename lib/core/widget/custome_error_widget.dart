@@ -11,7 +11,7 @@ class CustomeErrorWidget extends StatelessWidget {
         children: [
           Icon(
             Icons.error,
-            size: 100,
+            size: 40,
             color: Colors.red,
           ),
           const SizedBox(
@@ -20,7 +20,7 @@ class CustomeErrorWidget extends StatelessWidget {
           Text(
             errmessage,
             style: TextStyle(
-              fontSize: 20,
+              fontSize: 16,
               fontWeight: FontWeight.bold,
             ),
             textAlign: TextAlign.center,

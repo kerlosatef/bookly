@@ -14,7 +14,7 @@ class BookListViewItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        GoRouter.of(context).push(AppRoutes.bookDetailsView);
+        GoRouter.of(context).push(AppRoutes.bookDetailsView, extra: bookModel);
       },
       child: Padding(
         padding: const EdgeInsets.only(left: 20),
@@ -62,7 +62,7 @@ class BookListViewItem extends StatelessWidget {
                       const SizedBox(
                         width: 40,
                       ),
-                      Bookrating(rating: 4.9, count: 1000),
+                      Bookrating(),
                     ],
                   ),
                 ],
