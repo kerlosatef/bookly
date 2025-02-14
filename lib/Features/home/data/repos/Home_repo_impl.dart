@@ -8,93 +8,46 @@ import 'package:dio/dio.dart';
 class HomeRepoImpl implements HomeRepo {
   final ApiServices apiServices;
   HomeRepoImpl(this.apiServices);
-  @override
-  Future<Either<Failure, List<BookModel>>> fetchNewestBooks() async {
+
+  // 🔹 دالة عامة لإحضار الكتب من API
+  Future<Either<Failure, List<BookModel>>> _fetchBooks(String query) async {
     try {
       var data = await apiServices.get(
-          endPoint: 'volumes?Filtering=free-ebooks&Sorting=newest&q=flutter');
-      List<BookModel> books = [];
-      for (var item in data['items']) {
-        try {
-          books.add(BookModel.fromJson(item));
-        } catch (e) {
-          books.add(BookModel.fromJson(item));
-        }
-      }
+        endPoint: 'volumes?Filtering=free-ebooks&Sorting=relevance&q=$query',
+      );
+
+      List<BookModel> books = data['items']
+          .map<BookModel>((item) => BookModel.fromJson(item))
+          .toList();
 
       return right(books);
     } catch (e) {
       if (e is DioException) {
-        return left(
-          ServerFailure.fromDioException(e),
-        );
+        return left(ServerFailure.fromDioException(e));
       }
-      return left(
-        ServerFailure(
-          e.toString(),
-        ),
-      );
+      return left(ServerFailure(e.toString()));
     }
   }
 
   @override
-  Future<Either<Failure, List<BookModel>>> fetchFeaturedBook() async {
-    try {
-      var data = await apiServices.get(
-          endPoint:
-              'volumes?Filtering=free-ebooks&Sorting=newest&q=computer science');
-      List<BookModel> books = [];
-      for (var item in data['items']) {
-        try {
-          books.add(BookModel.fromJson(item));
-        } catch (e) {
-          books.add(BookModel.fromJson(item));
-        }
-      }
+  Future<Either<Failure, List<BookModel>>> fetchNewestBooks() {
+    return _fetchBooks('flutter'); // 🔹 البحث عن كتب Flutter الجديدة
+  }
 
-      return right(books);
-    } catch (e) {
-      if (e is DioException) {
-        return left(
-          ServerFailure.fromDioException(e),
-        );
-      }
-      return left(
-        ServerFailure(
-          e.toString(),
-        ),
-      );
-    }
+  @override
+  Future<Either<Failure, List<BookModel>>> fetchFeaturedBook() {
+    return _fetchBooks('computer science'); // 🔹 البحث عن كتب علوم الحاسب
   }
 
   @override
   Future<Either<Failure, List<BookModel>>> fetchSmillerBook(
-      {required String category}) async {
-    try {
-      var data = await apiServices.get(
-          endPoint:
-              'volumes?Filtering=free-ebooks&Sorting=relevance&q=$category');
-      List<BookModel> books = [];
-      for (var item in data['items']) {
-        try {
-          books.add(BookModel.fromJson(item));
-        } catch (e) {
-          books.add(BookModel.fromJson(item));
-        }
-      }
+      {required String category}) {
+    return _fetchBooks(category); // 🔹 البحث عن كتب مشابهة حسب الفئة
+  }
 
-      return right(books);
-    } catch (e) {
-      if (e is DioException) {
-        return left(
-          ServerFailure.fromDioException(e),
-        );
-      }
-      return left(
-        ServerFailure(
-          e.toString(),
-        ),
-      );
-    }
+  @override
+  Future<Either<Failure, List<BookModel>>> fetchSearchBook(
+      {required String query}) {
+    return _fetchBooks(query); // 🔹 البحث عن الكتب حسب نص المستخدم
   }
 }

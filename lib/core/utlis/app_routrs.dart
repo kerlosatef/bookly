@@ -1,5 +1,6 @@
 import 'package:bookly/Features/home/data/Models/book_model/book_model.dart';
 import 'package:bookly/Features/home/data/repos/Home_repo_impl.dart';
+import 'package:bookly/Features/home/presentation/manger/searchBook.dart/search_book_cubit.dart';
 import 'package:bookly/Features/home/presentation/manger/smillerbooks/smillerbooks_cubit.dart';
 import 'package:bookly/Features/home/presentation/views/Home_view.dart';
 import 'package:bookly/Features/home/presentation/views/book_deatils_view.dart';
@@ -21,7 +22,7 @@ abstract class AppRoutes {
       ),
       GoRoute(
         path: searchView,
-        builder: (context, state) => const SearchView(),
+        builder: (context, state) => SearchView(),
       ),
       GoRoute(
         path: homeView,
